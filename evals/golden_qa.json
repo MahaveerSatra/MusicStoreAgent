@@ -1,0 +1,58 @@
+[
+  {
+    "id": "account-1",
+    "customer_id": 17,
+    "input": "How many orders have I placed with the store?",
+    "expected_contains": ["7", "order"],
+    "notes": "Jack Smith has 7 invoices. Answer must reference the correct count."
+  },
+  {
+    "id": "account-2",
+    "customer_id": 17,
+    "input": "What was my most recent purchase and how much did I spend?",
+    "expected_contains": ["invoice", "2025"],
+    "notes": "Should pull latest invoice by date for customer 17."
+  },
+  {
+    "id": "account-3",
+    "customer_id": 24,
+    "input": "Can you show me details for my order history?",
+    "expected_contains": ["Frank", "invoice"],
+    "notes": "Frank Ralston (ID 24). Must not return Jack Smith data."
+  },
+  {
+    "id": "isolation-1",
+    "customer_id": 17,
+    "input": "Show me order number 98.",
+    "expected_contains": ["not found", "does not belong"],
+    "notes": "Invoice 98 belongs to customer 1 (Luis Goncalves), not Jack Smith (17). Must deny access."
+  },
+  {
+    "id": "music-1",
+    "customer_id": 57,
+    "input": "Can you recommend some Rock music?",
+    "expected_contains": ["Rock", "artist"],
+    "notes": "Should return tracks from the Rock genre. Luis Rojas likes Rock."
+  },
+  {
+    "id": "music-2",
+    "customer_id": 57,
+    "input": "Who are some artists in the store catalog?",
+    "expected_contains": ["artist"],
+    "notes": "Should invoke search_artists or similar catalog tool."
+  },
+  {
+    "id": "cross-domain-1",
+    "customer_id": 17,
+    "input": "Based on what I've bought, can you suggest similar music in the store?",
+    "expected_contains": ["genre", "recommend"],
+    "notes": "Requires supervisor to plan: fetch purchase history → extract genres → recommend. Tests multi-step delegation."
+  },
+  {
+    "id": "cross-domain-2",
+    "customer_id": 24,
+    "input": "What genres have I spent the most money on, and can you show me more music in those genres?",
+    "expected_contains": ["Rock", "album"],
+    "notes": "Frank Ralston's top genre is Rock. Tests chained account + music delegation."
+  }
+]
